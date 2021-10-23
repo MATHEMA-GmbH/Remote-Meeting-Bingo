@@ -26,6 +26,7 @@
         column-gap: 10px;
         row-gap: 10px;
         margin-top: 10em;
+        width: 100%;
     }
 
     .small {
@@ -69,6 +70,13 @@
         word-wrap: break-word;
         margin: 2px;
         width: 100%;
+    }
+
+    @media only screen and (max-width: 600px) {
+        button {
+            padding: 1px !important;
+            font-size: 10px !important;
+        }
     }
 
     .button:hover {

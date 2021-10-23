@@ -24,6 +24,11 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
+	@media only screen and (max-width: 600px) {
+		main {
+			padding: 0;
+		}
+	}
 
 	footer {
 		display: flex;
