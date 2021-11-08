@@ -1,5 +1,7 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
     import {getNewBingoLines, Size} from "$lib/BingoGrid/bingoLines";
+    import {isVictory} from "$lib/BingoGrid/bingoLogic";
 
     export let size: Size = null;
 
@@ -9,8 +11,14 @@
             line
         }
     });
+    $: victory = isVictory(bingoButtons, size);
 </script>
 
+{#if victory}
+    <p transition:fade>
+        Gewonnen!
+    </p>
+{/if}
 <div class="bingo-grid {size}">
     {#each bingoButtons as bingoButton (bingoButton.line)}
         <button class="button" class:selected="{bingoButton.selected}" role="button"
