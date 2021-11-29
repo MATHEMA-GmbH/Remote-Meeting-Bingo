@@ -1,13 +1,11 @@
 {
   "transform": {
-    "^.+\\.js$": "babel-jest",
     "^.+\\.svelte$": [
-      "./node_modules/svelte-jester/dist/transformer.mjs",
-      {
-        "preprocess": true
-      }
+      "svelte-jester",
+      { "preprocess": "./svelte.config.test.cjs" }
     ],
-    "^.+\\.ts$": "ts-jest"
+    "^.+\\.ts$": "ts-jest",
+    "^.+\\.js$": "ts-jest"
   },
   "moduleNameMapper": {
     "^\\$lib(.*)$": "<rootDir>/src/lib$1",
