@@ -1,6 +1,6 @@
 import {Size} from "$lib/BingoGrid/bingoLines";
 
-export interface BingoButton {
+interface BingoButton {
     selected: boolean;
     line: string;
 }
