@@ -26,7 +26,24 @@ describe('BingoLogic should detect victory for a', () => {
 
             expect(isVictory(bingoButtons, Size.SMALL)).toBeTruthy();
         })
+        it('in vertical versetzt', () => {
+            bingoButtons[3].selected = true;
+            bingoButtons[4].selected = true;
+            bingoButtons[5].selected = true;
+
+            expect(isVictory(bingoButtons, Size.SMALL)).toBeTruthy();
+        })
         it('in horizontal', () => {
+            bingoButtons[0].selected = true;
+            bingoButtons[3].selected = true;
+            bingoButtons[6].selected = true;
+
+            expect(isVictory(bingoButtons, Size.SMALL)).toBeTruthy();
+        })
+        it('in horizontal versetzt', () => {
+            bingoButtons[1].selected = true;
+            bingoButtons[4].selected = true;
+            bingoButtons[7].selected = true;
 
             expect(isVictory(bingoButtons, Size.SMALL)).toBeTruthy();
         })
@@ -94,9 +111,9 @@ describe('BingoLogic should detect victory for a', () => {
             expect(isVictory(bingoButtons, Size.MEDIUM)).toBeTruthy();
         })
         it('in diagonal right to left', () => {
-            bingoButtons[4].selected = true;
-            bingoButtons[7].selected = true;
-            bingoButtons[10].selected = true;
+            bingoButtons[3].selected = true;
+            bingoButtons[6].selected = true;
+            bingoButtons[9].selected = true;
             bingoButtons[12].selected = true;
 
             expect(isVictory(bingoButtons, Size.MEDIUM)).toBeTruthy();

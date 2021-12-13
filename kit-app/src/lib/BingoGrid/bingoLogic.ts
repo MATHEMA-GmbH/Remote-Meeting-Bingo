@@ -17,15 +17,32 @@ export function isVictory(bingoButtons: Array<BingoButton>, size: Size): boolean
 }
 
 function isPrivateVictory(bingoButtons: Array<BingoButton>, size: number): boolean {
-    let row = false;
-    let column = false;
-    let diagonal1 = false;
-    let diagonal2 = false;
+    let row = true;
+    let column = true;
+    let diagonal1 = true;
+    let diagonal2 = true;
     for (let i = 0; i < size; i++) {
         row = row && bingoButtons[i].selected;
-        column = column && bingoButtons[size * i + (size - 1 - i)].selected;
+        column = column && bingoButtons[size * i].selected;
         diagonal1 = diagonal1 && bingoButtons[size * i + i].selected;
-        diagonal2 = diagonal1 && bingoButtons[size * i + (size - 1 - i)].selected;
+        diagonal2 = diagonal2 && bingoButtons[size * i + (size - 1 - i)].selected;
     }
-    return row || column || diagonal1 || diagonal2;
+    return (row || column || diagonal1 || diagonal2) ? true : isSecondaryPrivateVictory(bingoButtons, size);
+}
+
+function isSecondaryPrivateVictory(bingoButtons: Array<BingoButton>, size: number): boolean {
+    let row = true;
+    let column = true;
+    for(let i = 1; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            row = row && bingoButtons[i * size + j].selected;
+            column = column && bingoButtons[j * size + i].selected;
+        }
+        if (row || column) {
+            return true;
+        }
+        row = true;
+        column = true;
+    }
+    return row || column;
 }
