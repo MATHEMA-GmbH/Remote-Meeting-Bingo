@@ -31,9 +31,9 @@ function isPrivateVictory(bingoButtons: Array<BingoButton>, size: number): boole
 }
 
 function isSecondaryPrivateVictory(bingoButtons: Array<BingoButton>, size: number): boolean {
-    let row = true;
-    let column = true;
     for(let i = 1; i < size; i++) {
+        let row = true;
+        let column = true;
         for (let j = 0; j < size; j++) {
             row = row && bingoButtons[i * size + j].selected;
             column = column && bingoButtons[j * size + i].selected;
@@ -41,8 +41,6 @@ function isSecondaryPrivateVictory(bingoButtons: Array<BingoButton>, size: numbe
         if (row || column) {
             return true;
         }
-        row = true;
-        column = true;
     }
-    return row || column;
+    return false;
 }
