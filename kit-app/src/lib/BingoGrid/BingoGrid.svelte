@@ -5,23 +5,30 @@
 
     export let size: Size = null;
 
-    $: bingoButtons = getNewBingoLines(size).map(line => {
-        return {
-            selected: false,
-            line
-        }
-    });
+    function buildPlayboard(size: Size) {
+        return getNewBingoLines(size).map(line => {
+            return {
+                selected: false,
+                line
+            };
+        });
+    }
+
+    $: bingoButtons = buildPlayboard(size);
     $: victory = isVictory(bingoButtons, size);
 </script>
 
 {#if victory}
-    <p transition:fade>
-        Gewonnen!
-    </p>
+    <div transition:fade >
+        <h3 class="victory">
+            Gewonnen!
+        </h3>
+        <button class="button" on:click="{() => bingoButtons = buildPlayboard(size)}">Erneut spielen?</button>
+    </div>
 {/if}
 <div class="bingo-grid {size}">
     {#each bingoButtons as bingoButton (bingoButton.line)}
-        <button class="button" class:selected="{bingoButton.selected}" role="button"
+        <button class="button" class:selected="{bingoButton.selected}" role="button" disabled="{victory}"
                 on:click="{() => bingoButton.selected = !bingoButton.selected}">
             {bingoButton.line}
         </button>
@@ -119,8 +126,12 @@
     }
 
     .selected {
-        background-color: var(--accent-color);
-        color: white;
+        background-color: var(--accent-color) !important;
+        color: white !important;
+    }
+
+    .victory {
+        text-align: center;
     }
 
 </style>
