@@ -1,8 +1,9 @@
 import Peer, {DataConnection} from "peerjs";
+import type {ClickMessage, Message} from "$lib/network/messages";
 
 export interface props {
     connectCallback: () => void;
-    dataCallback: () => void;
+    dataCallback: (data: Message) => void;
     peerId?: string;
 }
 
@@ -15,16 +16,20 @@ class Communication {
         this.peer = new Peer();
         if (!props.peerId) {
             this.peer.on('connection', (dataConnection => {
-                dataConnection.on('data', props.connectCallback);
-                dataConnection.on('open', props.dataCallback);
+                dataConnection.on('data', props.dataCallback);
+                dataConnection.on('connection', props.connectCallback);
             }));
         } else {
             this.dataConnection = this.peer.connect(props.peerId, {serialization: 'json'})
         }
     }
 
-    sendData(data: object) {
-        this.dataConnection.send(data);
+    sendClickMessage(message: ClickMessage) {
+        this.dataConnection.send(message);
+    }
+
+    getPeerId(): string {
+        return this.peer.id;
     }
 }
 

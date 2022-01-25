@@ -45,6 +45,8 @@ const bingoLines = [
     'Sorry... Du zuerst',
     'Ich sehe nichts - es lädt noch',
     'Ich muss jetzt leider in den nächsten Call',
+    'Ist jeder in Miro?',
+    'Sieht jeder unser Board?'
 ];
 
 export enum Size {

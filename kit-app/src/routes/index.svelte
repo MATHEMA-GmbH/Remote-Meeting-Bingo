@@ -5,8 +5,14 @@
 <script lang="ts">
 import SizeSelection from "$lib/SizeSelection.svelte";
 import BingoGrid from "$lib/BingoGrid/BingoGrid.svelte";
+import MultiplayerUi from "$lib/multiplayerUi/MultiplayerUI.svelte";
 
-let size;
+let selectedSize;
+let multiplayerActive;
+let multiplayerSize;
+
+$: actualSize = multiplayerActive ? multiplayerSize : selectedSize;
+
 </script>
 
 <svelte:head>
@@ -15,8 +21,11 @@ let size;
 
 <h1>Remote-Meeting-Bingo</h1>
 <section>
-	<SizeSelection bind:size/>
-	<BingoGrid size="{size}"/>
+	<div class="menu">
+		<SizeSelection bind:selectedSize/>
+		<MultiplayerUi bind:multiplayerActive bind:multiplayerSize size="{selectedSize}"/>
+	</div>
+	<BingoGrid size="{selectedSize}"/>
 </section>
 
 <style>
@@ -30,5 +39,12 @@ let size;
 
 	h1 {
 		width: 100%;
+	}
+
+	.menu {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
